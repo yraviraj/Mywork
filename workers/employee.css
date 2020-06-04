@@ -1,0 +1,49 @@
+table, th, td{
+    border: 1px solid black;
+    text-align: center;
+    background: lightblue;
+    
+}
+
+table{
+    border-collapse: collapse;
+    width: 200px;
+}
+
+th,td{
+    height: 30px;
+}
+
+th{
+color: darkblue
+}
+
+.table{
+    overflow-y: auto;
+    height: 400px;
+    width: 220px;
+    margin: auto;
+}
+
+.container{
+    
+    text-align: center
+}
+
+.addemp{
+    width: 300px;
+    height: 120px;
+    background: lightblue;
+    text-align: center;
+    margin: 10px auto;
+    
+}
+
+p{
+    margin: 0;
+    padding: 8px;
+}
+
+.emp-details{
+    text-align: right
+}

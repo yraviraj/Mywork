@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>login page</title>
+    <link rel="stylesheet" href="login_page2.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>login here</h2>
+        <form action="workers_table.html" onsubmit="return validate();">
+            <input type="email" id="email" name="email" placeholder="email">
+            
+            <input type="password" id="password" name="password" placeholder="password"><br>
+            
+            <button type="submit"> submit </button> <br>
+            <a href="#">Forgot password</a>
+        </form>
+    </div>
+</body>
+<script>
+    function validate() {
+        let user = document.getElementById('email');
+        let regx = /^([a-zA-Z0-9\.-]+)@([a-z0-9-]+).([a-z]{2,8})(.[a-z]{2,8})?$/;
+        let password = document.getElementById('password');
+        if(user.value.trim() == '')
+        {
+            user.style.border = '1px solid red';
+            
+            return false;
+        }        
+        else if(password.value.trim().length < 5)
+        {
+            password.style.border = '1px solid red';
+            alert('error in password');
+            return false;
+        }
+        else{
+            if(regx.test(user.value)){
+                return true;
+            }
+            else{
+                user.style.border = '1px solid red';
+                alert('invalid email id');
+                return false;
+            }        
+        }
+    }
+</script>
+</html>
