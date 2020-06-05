@@ -1,8 +1,29 @@
 table, th, td{
     border: 1px solid black;
     text-align: center;
+    background: lightblue;   
+}
+
+.container{
+    display: flex;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.item-1{
+    padding: 20px;
+    text-align: center;
+}
+
+.item-2{
+    padding: 10px;
+    margin: auto 20px;
+}
+.item-3{
+    padding: 10px;
+    margin: auto 20px;
     background: lightblue;
-    
+    text-align: center;
 }
 
 table{
@@ -22,21 +43,14 @@ color: darkblue
     overflow-y: auto;
     height: 400px;
     width: 220px;
-    margin: auto;
-}
-
-.container{
-    
-    text-align: center
+    margin: auto; 
 }
 
 .addemp{
     width: 300px;
-    height: 120px;
+    height: 150px;
     background: lightblue;
-    text-align: center;
-    margin: 10px auto;
-    
+    text-align: center;      
 }
 
 p{
@@ -45,5 +59,20 @@ p{
 }
 
 .emp-details{
-    text-align: right
+    width: 400px;
+    height: 280px;
+    border: 1px solid steelblue;
+}
+
+label{
+    display: inline-block;
+    width: 120px;
+}
+input, label, button{
+    padding: 3px;
+    margin: 5px;
+}
+.required{
+    font-weight: bold;
+    color: red;
 }
