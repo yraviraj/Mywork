@@ -40,13 +40,11 @@ keys.forEach(e => {
 console.log(employees);
 */
 
-class EmployeeServices{
-    constructor()
-    {
+class EmployeeServices {
+    constructor() {
         this.empcollection = [];
     }
-    add(emp)
-    {
+    add(emp) {
         this.empcollection.push(emp);
     }
 }
@@ -54,25 +52,25 @@ class EmployeeServices{
 const employeeServices = new EmployeeServices();
 for (let i = 1; i <= 100; i++) {
 
-   employeeServices.add(new Employee((100 + i), ('smith' + i), (10 + i)));
+    employeeServices.add(new Employee((100 + i), ('smith' + i), (10 + i)));
 
-   // employees[i] = new Employee((100 + i), ('smith' + i), (10 + i)); // saving 100 Employee objects into employees object with 101 to 200 as key or properties
+    // employees[i] = new Employee((100 + i), ('smith' + i), (10 + i)); // saving 100 Employee objects into employees object with 101 to 200 as key or properties
 }
 // adding new properties such as pincode, state etc..
-let c=0;
-employeeServices.empcollection.forEach(obj=> {
-    obj["state"] = "state"+c;
+let c = 0;
+employeeServices.empcollection.forEach(obj => {
+    obj["state"] = "state" + c;
     obj.pincode = 50000 + c;
     c++;
 });
 
-console.log(employeeServices.empcollection);
+// console.log(employeeServices.empcollection);
 
 const empKey = Object.keys(employeeServices.empcollection[1]);
 const empVal = Object.values(employeeServices.empcollection);
 
-console.log("empKey:"+empKey);
-console.log("emp values: " +empVal);
+// console.log("empKey:" + empKey);
+// console.log("emp values: " + empVal);
 
 function generateTableHead(table, empKey) {             // function for generating table head
     let thead = table.createTHead();
@@ -85,41 +83,40 @@ function generateTableHead(table, empKey) {             // function for generati
     let select = document.createTextNode("select");
     th.appendChild(select);
     row.appendChild(th);
-  
+
     for (const key of empKey) {
-        if((key == "id") || (key == "name") || (key == "age")) // to display 3 prop. id name and age
+        if ((key == "id") || (key == "name") || (key == "age")) // to display 3 prop. id name and age
         {
-        let th = document.createElement("th");
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
+            let th = document.createElement("th");
+            let text = document.createTextNode(key);
+            th.appendChild(text);
+            row.appendChild(th);
         }
         else
-        continue;
+            continue;
     }
 }
 let table = document.querySelector('table'); // getting table object form html table tag
 
-function empDetails(eid){
-empVal.forEach(emp => {
-    if(emp.id == eid)
-    {
-        document.getElementById("emp-details").style.visibility="visible";
-        document.getElementById("update-name").innerHTML= "Hi "+emp.name;
-        document.getElementById("emp-id").value= emp.id;
-        document.getElementById("emp-name").value = emp.name;
-        document.getElementById("emp-age").value = emp.age;        
-        document.getElementById("emp-state").value = emp.state;        
-        document.getElementById("emp-pincode").value = emp.pincode;        
-    } 
-});
+function empDetails(eid) {
+    empVal.forEach(emp => {
+        if (emp.id == eid) {
+            document.getElementById("emp-details").style.visibility = "visible";
+            document.getElementById("update-name").innerHTML = "Hi " + emp.name;
+            document.getElementById("emp-id").value = emp.id;
+            document.getElementById("emp-name").value = emp.name;
+            document.getElementById("emp-age").value = emp.age;
+            document.getElementById("emp-state").value = emp.state;
+            document.getElementById("emp-pincode").value = emp.pincode;
+        }
+    });
 };
 let updateName = document.getElementById("emp-name");  //dynamically updating.
 updateName.onkeydown = updateNameDisplay;    //https://stackoverflow.com/questions/4790946/dynamically-displaying-input-values-using-javascript
 updateName.onkeyup = updateNameDisplay;
 
-function updateNameDisplay(){
-    document.getElementById("update-name").innerHTML = "Hi "+ this.value;
+function updateNameDisplay() {
+    document.getElementById("update-name").innerHTML = "Hi " + this.value;
 }
 
 
@@ -127,35 +124,36 @@ function updateNameDisplay(){
 function generateTable(table, emplVal) {                 //function for generating table body
     for (let list of emplVal) {
         let row = table.insertRow();
+        row.id = list.id;               //adding id attribute to every tr
+
 
         let ccell = row.insertCell();
         let x = document.createElement("INPUT");
         x.setAttribute("type", "checkbox");
         x.setAttribute("name", "check-box");
         ccell.appendChild(x);
-        let count = 1;
-        for (let sublist in list) { 
-            if((sublist == "id") || (sublist == "name") || (sublist == "age"))    // to display 3 prop. id name and age
+
+        for (let sublist in list) {
+            if ((sublist == "id") || (sublist == "name") || (sublist == "age"))    // to display 3 prop. id name and age
             {
-            if(count == 1){
-                let cell = row.insertCell();
-                let x = document.createElement("a");                // Create anchor element.
-                let text = document.createTextNode(list[sublist]);  // Create the text node for anchor element.
-                x.appendChild(text);                                // Append the text node to anchor element.
-                x.title = list[sublist];                            // Set the title.  which is optional
-                x.setAttribute("href", "#");                        // Set the href property.
-                x.setAttribute("onclick", "empDetails("+list[sublist]+")");
-                cell.appendChild(x);                                //appending the anchor element to the cell.    https://www.geeksforgeeks.org/how-to-create-a-link-in-javascript/
-            }                                                       // https://www.kirupa.com/html5/handling_events_for_many_elements.htm
-            else{
-                let cell = row.insertCell();
-                let text = document.createTextNode(list[sublist]);
-                cell.appendChild(text);
+                if (sublist === "id") {
+                    let cell = row.insertCell();
+                    let x = document.createElement("a");                // Create anchor element.
+                    let text = document.createTextNode(list[sublist]);  // Create the text node for anchor element.
+                    x.appendChild(text);                                // Append the text node to anchor element.
+                    x.title = list[sublist];                            // Set the title.  which is optional
+                    x.setAttribute("href", "#");                        // Set the href property.
+                    x.setAttribute("onclick", "empDetails(" + list[sublist] + ")");
+                    cell.appendChild(x);                                //appending the anchor element to the cell.    https://www.geeksforgeeks.org/how-to-create-a-link-in-javascript/
+                }                                                       // https://www.kirupa.com/html5/handling_events_for_many_elements.htm
+                else {
+                    let cell = row.insertCell();
+                    let text = document.createTextNode(list[sublist]);
+                    cell.appendChild(text);
+                }
             }
-            count++;
-        }
-        else
-        continue;       
+            else
+                continue;
         }
     }
 }
@@ -163,7 +161,7 @@ generateTable(table, empVal);
 generateTableHead(table, empKey);
 
 let add = document.getElementById("add-btn");
-add.addEventListener("click",  () => {
+add.addEventListener("click", () => {
     document.getElementById("abc").style.visibility = 'visible';
 });
 
@@ -175,11 +173,11 @@ addemp.addEventListener('click', () => {
     let newEmp = new Employee(empVal.length + 100 + i, ename, eage);
     empVal.push(newEmp);
     let row = table.insertRow();
-    let ccell = row.insertCell();
-    let x = document.createElement("INPUT");
+    let ccell = row.insertCell();               //inserting cell for checkbox
+    let x = document.createElement("INPUT");    //below statements are for inserting checkbox into the cell
     x.setAttribute("type", "checkbox");
     x.setAttribute("name", "check-box");
-    ccell.appendChild(x);
+    ccell.appendChild(x);                       //until this statement is meant for inserting checkbox into cell
     for (let key in newEmp) {
         let cell = row.insertCell();
         let text = document.createTextNode(newEmp[key]);
@@ -189,12 +187,12 @@ addemp.addEventListener('click', () => {
 });
 
 function isChecked(checkBoxes) {
-   /* checkBoxes.forEach(element => {
-        if(element.checked)
-        {
-            return true;
-        }   
-    });  */
+    /* checkBoxes.forEach(element => {
+         if(element.checked)
+         {
+             return true;
+         }   
+     });  */
     for (i = 0; i < checkBoxes.length; i++) {
         if (checkBoxes[i].checked) {
             return true;
@@ -220,6 +218,28 @@ delemp.addEventListener("click", () => {
             }
         }
     }
+});
+
+let saveemp = document.getElementById("save-emp");
+saveemp.addEventListener("click", () => {
+    
+    let emp_id = document.getElementById("emp-id").value;
+    let emp_name = document.getElementById("emp-name").value;
+    let emp_age = document.getElementById("emp-age").value;
+    let emp_state = document.getElementById("emp-state").value;
+    let emp_pincode = document.getElementById("emp-pincode").value;
+    console.log(emp_id +"  " +emp_name+"  "+emp_age)
+    
+    
+    employeeServices.empcollection.forEach(employee => {
+        if(employee.id == emp_id)
+        {
+            document.getElementById(emp_id).deleteCell(2);
+            document.getElementById(emp_id).insertCell(2).innerHTML = emp_name;
+            document.getElementById(emp_id).deleteCell(3);
+            document.getElementById(emp_id).insertCell(3).innerHTML = emp_age;
+        }
+    });
 });
 
 
