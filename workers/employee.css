@@ -3,7 +3,6 @@ table, th, td{
     text-align: center;
     background: lightblue;   
 }
-
 .container{
     display: flex;
     margin: auto;
@@ -14,7 +13,6 @@ table, th, td{
     padding: 20px;
     text-align: center;
 }
-
 .item-2{
     padding: 10px;
     margin: auto 20px;
@@ -25,50 +23,42 @@ table, th, td{
     background: lightblue;
     text-align: center;
 }
-
 table{
     border-collapse: collapse;
     width: 200px;
 }
-
 th,td{
     height: 30px;
 }
-
 th{
 color: darkblue
 }
-
 .table{
     overflow-y: auto;
     height: 400px;
     width: 220px;
     margin: auto; 
 }
-
 .addemp{
     width: 300px;
-    height: 150px;
+    height: 10px;
     background: lightblue;
     text-align: center;      
 }
-
 p{
     margin: 0;
     padding: 8px;
 }
-
 .emp-details{
     width: 400px;
-    height: 280px;
+    height: 320px;
     border: 1px solid steelblue;
 }
-
 label{
     display: inline-block;
     width: 120px;
 }
-input, label, button{
+input, label,select, button{
     padding: 3px;
     margin: 5px;
 }

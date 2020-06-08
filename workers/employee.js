@@ -119,13 +119,10 @@ function updateNameDisplay() {
     document.getElementById("update-name").innerHTML = "Hi " + this.value;
 }
 
-
-
 function generateTable(table, emplVal) {                 //function for generating table body
     for (let list of emplVal) {
         let row = table.insertRow();
         row.id = list.id;               //adding id attribute to every tr
-
 
         let ccell = row.insertCell();
         let x = document.createElement("INPUT");
@@ -172,15 +169,16 @@ addemp.addEventListener('click', () => {
     let i = 1;
     let newEmp = new Employee(empVal.length + 100 + i, ename, eage);
     empVal.push(newEmp);
+    console.log(Object.keys(newEmp));
     let row = table.insertRow();
-    let ccell = row.insertCell();               //inserting cell for checkbox
-    let x = document.createElement("INPUT");    //below statements are for inserting checkbox into the cell
+    let ccell = row.insertCell();               //  inserting cell for checkbox
+    let x = document.createElement("INPUT");    //  below statements are for inserting checkbox into the cell
     x.setAttribute("type", "checkbox");
     x.setAttribute("name", "check-box");
-    ccell.appendChild(x);                       //until this statement is meant for inserting checkbox into cell
-    for (let key in newEmp) {
+    ccell.appendChild(x);                       //  until this statement is meant for inserting checkbox into cell
+    for (let item in newEmp) {
         let cell = row.insertCell();
-        let text = document.createTextNode(newEmp[key]);
+        let text = document.createTextNode(newEmp[item]);
         cell.appendChild(text);
     };
     document.getElementById("abc").style.visibility = 'hidden';
@@ -222,27 +220,71 @@ delemp.addEventListener("click", () => {
 
 let saveemp = document.getElementById("save-emp");
 saveemp.addEventListener("click", () => {
-    
+    document.getElementById("emp-details").style.visibility= "visible";
+
     let emp_id = document.getElementById("emp-id").value;
     let emp_name = document.getElementById("emp-name").value;
     let emp_age = document.getElementById("emp-age").value;
     let emp_state = document.getElementById("emp-state").value;
     let emp_pincode = document.getElementById("emp-pincode").value;
-    console.log(emp_id +"  " +emp_name+"  "+emp_age)
-    
-    
-    employeeServices.empcollection.forEach(employee => {
-        if(employee.id == emp_id)
-        {
+    let emp_country = document.getElementById("country").value;
+     console.log(emp_id + "  " + emp_name + "  " + emp_age + " " + emp_state + " " + emp_pincode + " " + emp_country);
+
+     // updating the array object
+     employeeServices.empcollection[emp_id - 101].name = emp_name;
+     employeeServices.empcollection[emp_id - 101].age = emp_age;
+     employeeServices.empcollection[emp_id - 101].state = emp_state;
+     employeeServices.empcollection[emp_id - 101].pincode = emp_pincode;
+     employeeServices.empcollection[emp_id - 101].country = emp_country;
+
+     //updating the table with the edited data by clicking on the id
+    employeeServices.empcollection.forEach(employee => {   
+        if (employee.id == emp_id) {
             document.getElementById(emp_id).deleteCell(2);
             document.getElementById(emp_id).insertCell(2).innerHTML = emp_name;
             document.getElementById(emp_id).deleteCell(3);
             document.getElementById(emp_id).insertCell(3).innerHTML = emp_age;
         }
     });
+    document.getElementById("emp-details").style.visibility= "hidden";
 });
+let countries = [];
+let countries_list = [];
+/*
+function getCountries(){
 
+    fetch("https://api.printful.com/countries")
+    .then(result => {
+        //console.log(result);
+        return result.json();
+    })
+    .then(data => {
+        data.result.forEach(element => {
+            console.log(element.name);
+            countries.push(element.name);
+        });
+        //console.log(data.result[1].name)
+        //console.log(countries);
+    })
+    .catch(error => console.log(error));
+};
+*/
 
-
-
-
+async function getCountries() {         // async function to get countries list using fetch api
+    let countries = await fetch("https://api.printful.com/countries");
+    return countries;
+}
+getCountries().then((result) => {
+    //console.log(result);
+    return result.json();
+})
+    .then(element => {
+        //console.log(element.result);
+        element.result.forEach(item => {
+            countries_list.push(item.name);
+            let x = document.createElement("option");
+            let y = document.createTextNode(item.name);
+            x.appendChild(y);
+            document.getElementById("country").appendChild(x);
+        });
+    });
