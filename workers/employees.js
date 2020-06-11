@@ -9,20 +9,37 @@ class Employee {
 class EmployeeServices {
     constructor() {
         this.empcollection = [];
+        this.employeeArray = [];
     }
-    add(emp) {
+    add(emp) {   //method to add an emp object to an array
         this.empcollection.push(emp);
     }
-    delete(val){
-        this.empcollection.splice(val,1);
+    delete(id){        // to delete an employee object based on id from an array
+        const index = this.empcollection.indexOf(this.empcollection.find(eachemp => "chk-"+eachemp.id == id))
+        this.empcollection.splice(index,1);
     }
-    update(id, name, age, state, pincode, country)
+    update(id, name, age, state, pincode, country)  //updating the properties of employee object in an array.
     {
         this.empcollection[id].name = name;
         this.empcollection[id].age = age;
         this.empcollection[id].state = state;
         this.empcollection[id].pincode = pincode;
         this.empcollection[id].country = country;
+    }
+    empObject(empid) // fn for returning emp object wrt emp id 
+    {
+       return this.empcollection.find(empobj => empobj.id == empid);
+    }
+    getsize()  // method to return the size of an array containing employee objects
+    {
+        return this.empcollection.length;
+    }
+    getAllEmployees(){      // method to return an array containing all the employee objects
+        this.employeeArray = Array.from(this.empcollection); //copies all the content from empcollection array to employeeArray
+        return this.employeeArray
+    }
+    static empProperties(){     // static method to return all the properties of an employee object containing in an array
+        return ["id", "name", "age", "state", "pincode", "country"]
     }
 }
 
@@ -35,19 +52,16 @@ for (let i = 1; i <= 100; i++) {
 
 function addingProp() {
     let c = 0;
-    employeeServices.empcollection.forEach(obj => {
+    employeeServices.getAllEmployees().forEach(obj => {  //employeeServices.getAllEmployees() returns array of employee objects
         obj["state"] = "state" + c;
         obj.pincode = 50000 + c;
         c++;
     });
 }
 
-const empKey = Object.keys(employeeServices.empcollection[1]);
-const empVal = Object.values(employeeServices.empcollection);
-
 //===============================================================   function for generating table head
 
-function generateTableHead(table, empKey) {             // function for generating table head
+function generateTableHead(table) {             // function for generating table head
     let thead = table.createTHead();
     /* createTHead(). createTHead() returns 
     the table head element associated with a given table, 
@@ -59,7 +73,7 @@ function generateTableHead(table, empKey) {             // function for generati
     th.appendChild(select);
     row.appendChild(th);
 
-    for (const key of empKey) {
+    for (const key of EmployeeServices.empProperties()) {
         if ((key == "id") || (key == "name") || (key == "age")) // to display 3 prop. id name and age
         {
             let th = document.createElement("th");
@@ -75,21 +89,19 @@ function generateTableHead(table, empKey) {             // function for generati
 let table = document.querySelector('table'); // getting table object form html table tag
 
 function empDetails(eid) {   // fn to display emp details corresponding to emp id
-    empVal.forEach(emp => {
-        if (emp.id == eid) {
+    let empobj = employeeServices.empObject(eid);
             document.getElementById("emp-details").style.visibility = "visible";
-            document.getElementById("update-name").innerHTML = "Hi " + emp.name;
-            document.getElementById("emp-id").value = emp.id;
-            document.getElementById("emp-name").value = emp.name;
-            document.getElementById("emp-age").value = emp.age;
-            document.getElementById("emp-state").value = emp.state;
-            document.getElementById("emp-pincode").value = emp.pincode;
-        }
-    });
+            document.getElementById("abc").style.visibility = 'hidden';
+            document.getElementById("update-name").innerHTML = "Hi " + empobj.name;
+            document.getElementById("emp-id").value = empobj.id;
+            document.getElementById("emp-name").value = empobj.name;
+            document.getElementById("emp-age").value = empobj.age;
+            document.getElementById("emp-state").value = empobj.state;
+            document.getElementById("emp-pincode").value = empobj.pincode;
 };
 
-function generateTable(table, emplVal) {   //function for generating table body
-    for (let list of emplVal) {
+function generateTable(table) {   //function for generating table body
+    for (let list of employeeServices.getAllEmployees()) {   // employeeServices.getAllEmployees() returns array of employees.
         let row = table.insertRow();
         row.id = list.id;               //adding id attribute to every tr
 
@@ -97,6 +109,7 @@ function generateTable(table, emplVal) {   //function for generating table body
         let x = document.createElement("INPUT");
         x.setAttribute("type", "checkbox");
         x.setAttribute("name", "check-box");
+        x.setAttribute("id", "chk-"+list.id);  // adding id attribute and value as chk-id to every checkbox
         ccell.appendChild(x);
     
         for (let sublist in list) {
@@ -120,8 +133,8 @@ function generateTable(table, emplVal) {   //function for generating table body
     }
 }
 
-generateTable(table, empVal);
-generateTableHead(table, empKey);
+generateTable(table);
+generateTableHead(table);
 
 function insertCell(row, list, sublist) {
     let cell = row.insertCell();
@@ -155,23 +168,26 @@ function addEmpBox() {
     let add = document.getElementById("add-btn");
     add.addEventListener("click", () => {
         document.getElementById("abc").style.visibility = 'visible';
+        document.getElementById("emp-details").style.visibility = "hidden";
+        
     });
 }
 
 function addEmployee() {
     let addemp = document.getElementById('submit');
     addemp.addEventListener('click', () => {
+        
         let ename = document.getElementById('ename').value;
         let eage = document.getElementById('eage').value;
         let i = 1;
-        let newEmp = new Employee(empVal.length + 100 + i, ename, eage);
-        empVal.push(newEmp);
-        console.log(Object.keys(newEmp));
+        let newEmp = new Employee( employeeServices.getsize() + 100 + i, ename, eage);
+        employeeServices.add(newEmp);
         let row = table.insertRow();
         let ccell = row.insertCell();               //  inserting cell for checkbox
         let x = document.createElement("INPUT");    //  below statements are for inserting checkbox into the cell
         x.setAttribute("type", "checkbox");
         x.setAttribute("name", "check-box");
+        x.setAttribute("id","chk-"+employeeServices.getsize() + 100 + i - 1);   // adding id attribute and value as chk-id to every checkbox
         ccell.appendChild(x);                       //  until this statement is meant for inserting checkbox into cell
         for (let item in newEmp) {
             let cell = row.insertCell();
@@ -186,8 +202,8 @@ function addEmployee() {
 function deleteEmployee() {
     let delemp = document.getElementById("del-btn");
     delemp.addEventListener("click", () => {
-        let checkboxes = document.getElementsByName("check-box");
-        console.log(checkboxes)
+        let checkboxes = document.getElementsByName("check-box"); // checkboxes contains nodelist of checkboxes
+        
         function isChecked(checkBoxes) {
 
             /* for (i = 0; i < checkBoxes.length; i++) {
@@ -196,7 +212,6 @@ function deleteEmployee() {
                  }
              }*/
             const chkdArr = Array.from(checkBoxes);//converting nodelist(checkBoxes) to array(chkdArr)
-
             const checked = chkdArr.find(box => box.checked); //find method is applied only to arrays so nodelist is conv to array
             return checked;
         }
@@ -204,7 +219,7 @@ function deleteEmployee() {
             checkboxes.forEach((eachbox, index) => {
                 if (eachbox.checked) {
                     table.deleteRow(index + 1);
-                    employeeServices.delete(index);
+                    employeeServices.delete(eachbox.id);    // passing id to the employeeServices.delete() method to delete the employee obj
                 }
             });
         }
@@ -225,8 +240,7 @@ function updateName() {
 function updateEmployeeDetails() {
     let saveemp = document.getElementById("save-emp");
     saveemp.addEventListener("click", () => {
-        document.getElementById("emp-details").style.visibility = "visible";
-
+        
         let emp_id = document.getElementById("emp-id").value;
         let emp_name = document.getElementById("emp-name").value;
         let emp_age = document.getElementById("emp-age").value;
@@ -239,7 +253,7 @@ function updateEmployeeDetails() {
         employeeServices.update(emp_id - 101, emp_name, emp_age, emp_state, emp_pincode, emp_country);
         
         //updating the table with the edited data by clicking on the id
-        employeeServices.empcollection.forEach(employee => {
+        employeeServices.getAllEmployees().forEach(employee => {
             if (employee.id == emp_id) {
                 document.getElementById(emp_id).deleteCell(2);
                 document.getElementById(emp_id).insertCell(2).innerHTML = emp_name;

@@ -1,0 +1,85 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+display: flex;
+justify-content: center;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%,-50%);
+/* flex-flow: row wrap; */
+
+}
+
+.emp-table{
+    margin: auto;
+    text-align: center;
+    
+}
+
+.table{
+    width: 250px;
+    height: 500px;
+    
+    margin: auto;
+    overflow-y: auto;
+}
+table, th, td{
+       border-collapse: collapse;
+    border: 1px solid black;
+    padding: 5px;
+}
+table{
+    width: 230px;
+    height: 500px;
+    background: lightblue;
+}
+
+.addemp{
+    background: lightblue;
+    text-align: center;
+    margin: auto;
+    width: 350px;
+    height: 130px;
+}
+.item-2 > input,label{
+    padding: 3px;
+    margin: 8px;
+}
+.emp-details{
+    background: lightblue;
+    width: 400px;
+    height: 350px;
+    padding: 3px;
+    text-align: center;
+}
+
+form > input, label, select{
+    padding: 3px;
+    margin: 7px;
+    width: 105px;
+}
+
+form{
+    text-align: center;
+}
+label, select{
+    display: inline-block;
+    width: 120px;
+}
+
+.item-2{
+    margin-top: 200px;
+    position: absolute;
+}
+.item-3{
+    margin-top: 150px;
+    position: absolute;
+}
+.required{
+    font-weight: bold;
+    color: red;
+}
