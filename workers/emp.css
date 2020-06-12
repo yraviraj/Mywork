@@ -1,0 +1,93 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+.container{
+    display: flex;
+    margin: auto;
+    text-align: center;
+    justify-content: center;
+}
+.table{
+    width: 250px;
+    height: 500px;
+    margin: auto;
+    overflow-y: auto;
+}
+table, th, td{
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding: 5px;
+}
+table{
+    width: 230px;
+    height: 500px;
+    background: lightblue;
+}
+.addemp{
+    background: lightblue;
+    text-align: center;
+    margin: auto;
+    width: 350px;
+    height: 130px;
+}
+.item-2 > div{
+    padding: 3px;
+    margin: 8px;
+}
+.emp-details{
+    background: lightblue;
+    width: 400px;
+    height: 350px;
+    padding: 3px;
+    text-align: center;
+}
+form{
+    text-align: center;
+}
+.item-2{
+    margin-top: 200px;
+    position: absolute;
+}
+.item-3{
+    margin-top: 150px;
+    position: absolute;
+}
+.required{
+    font-weight: bold;
+    color: red;
+}
+.grid-form{
+    display: grid;
+    grid-template-columns: 40% 60%;
+}
+.grid-form > div{
+    margin: 5px;
+    padding: 5px;
+}
+select{
+    width: 150px;
+    margin: 5px;
+}
+select:focus{
+    min-width: 150px;
+    width: auto;
+}
+.flexitem1{
+    flex-basis: 100px;
+}
+.flexitem2{
+    flex-basis: 50px;
+}
+#logout-btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 1em;
+    padding: 5px;
+}
+.input-addemp > label{
+    width: 100px;
+    display: inline-block;
+    padding: 7px;
+}
