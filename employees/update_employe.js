@@ -1,8 +1,3 @@
-function loadfunctions(){
-    updateName();
-    updateEmployeeDetails();
-}
-window.onload = loadfunctions();
 function updateName() {
     //dynamic updating name in emp details box
     let updateName = document.getElementById("emp-name");  //dynamically updating.

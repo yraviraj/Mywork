@@ -1,11 +1,11 @@
 function myload() {
     addEmpBox();
     addEmployee();
-    /*deleteEmployee();
+    deleteEmployee();
     updateName();
     updateEmployeeDetails();
     getCountries();
-    addingProp();*/
+    addingProp();
 }
 
 window.onload = myload();

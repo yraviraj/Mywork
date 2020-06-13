@@ -57,4 +57,3 @@ function addingProp() {
         c++;
     });
 }
-addingProp();

@@ -1,4 +1,3 @@
-window.onload = deleteEmployee();
 function deleteEmployee() {
     let delemp = document.getElementById("del-btn");
     delemp.addEventListener("click", () => {

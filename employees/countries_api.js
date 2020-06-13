@@ -1,5 +1,3 @@
-getCountries();
-
 let countries = [];
 let countries_list = [];
 function getCountries() {
