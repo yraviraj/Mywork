@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const credentials = [];
 app.use(express.static('public'));
-console.log("req js started");
+console.log("employees app js started");
 
 app.get("/", (req, res) => {
     // res.send("Hello world !!!");
@@ -33,11 +33,11 @@ app.post("/api/credentials/add", (req, res) => {
     };
     credentials.push(details);
     res.send(details);
-    //console.log(details);
+    console.log(details);
 });
 
 app.post("/api/login", (req, res) => {
-
+  
     const cookie = (credentials[0].email === req.body.email) && (credentials[0].password == req.body.password) ? "Matched" : "UN Matched";
     
     if(cookie === "Matched"){
@@ -47,9 +47,54 @@ app.post("/api/login", (req, res) => {
     else{
         res.status(404).send("Username or Password doesnot match");
     }
-    //console.log(req.body)
-    //console.log(credentials[0]);
-});
+    console.log(req.body);
+    console.log(credentials[0].email);
+    console.log(credentials[0].password);
     
+});
+
+let empcollection = [];
+
+app.post("/api/add", (req, res) => {
+    const emp = req.body.emp;
+    empcollection.push(emp);
+});
+
+app.post("/api/delete/:id", (req, res) => {
+    const iD = parseInt(req.params.id); 
+    const index = empcollection.indexOf(empcollection.find(eachemp => "chk-"+eachemp.id == iD));
+    empcollection.splice(index);
+})
+
+app.post("api/update", (req, res) => {
+    const id = req.body.id;
+    const name = req.body.name;
+    const age = req.body.age;
+    const state = req.body.state;
+    const pincode = req.body.pincode;
+    const country = req.body.country;
+    empcollection[id].name = name;
+    empcollection[id].age = age;
+    empcollection[id].state = state;
+    empcollection[id].pincode = pincode;
+    empcollection[id].country = country;
+})
+
+app.get("api/employeeobject/:id", (req, res) => {
+    const employee = empcollection.find(emp => emp.id === parseInt(req.params.id))
+    if(!employee) res.status(404).send(`the employee with the ${req.params.id} was not found`);
+    res.send(employee);
+});
+
+app.get("/api/getsize", (req, res) => {
+    res.send(empcollection.length);
+})
+
+app.get("/api/getallemployees",(req, res) => {
+    const empcollectionCopy = Array.from(empcollection);
+    res.send(empcollectionCopy);
+})
+
+
 //const port = process.env.PORT || 3000;
 app.listen(3000, () => console.log(`Listening on port...  3000`));
