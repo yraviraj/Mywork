@@ -14,7 +14,9 @@ app.use(express.json());
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const credentials = [];
+const credentials = [
+    {email: "yraviraj@gmail.com", password: "yraviraj"}
+];
 app.use(express.static('public'));
 console.log("employees app js started");
 
@@ -47,37 +49,42 @@ app.post("/api/login", (req, res) => {
     else{
         res.status(404).send("Username or Password doesnot match");
     }
-    console.log(req.body);
-    console.log(credentials[0].email);
-    console.log(credentials[0].password);
+    //console.log(req.body);
+    //console.log(credentials[0].email);
+    //console.log(credentials[0].password);
     
 });
 
 let empcollection = [];
 
 app.post("/api/add", (req, res) => {
-    const emp = req.body.emp;
+    res.setHeader('Content-Type', 'application/json');
+    const emp = req.body;
     empcollection.push(emp);
+    //console.log(empcollection[empcollection.length - 1]);
+    res.status(200).send(empcollection[empcollection.length - 1]);
+    //console.log("array length: "+empcollection.length);
 });
 
-app.post("/api/delete/:id", (req, res) => {
-    const iD = parseInt(req.params.id); 
+app.post("/api/delete", (req, res) => {
+    const iD = req.body.id;
+   // console.log(iD);
     const index = empcollection.indexOf(empcollection.find(eachemp => "chk-"+eachemp.id == iD));
-    empcollection.splice(index);
+   // console.log("index: "+index);
+    empcollection.splice(index,1);
+   // console.log("array length: "+empcollection.length);
+    res.status(200).send(empcollection);
 })
 
 app.post("api/update", (req, res) => {
     const id = req.body.id;
-    const name = req.body.name;
-    const age = req.body.age;
-    const state = req.body.state;
-    const pincode = req.body.pincode;
-    const country = req.body.country;
-    empcollection[id].name = name;
-    empcollection[id].age = age;
-    empcollection[id].state = state;
-    empcollection[id].pincode = pincode;
-    empcollection[id].country = country;
+    console.log(req.body);
+    empcollection[id].name = req.body.name;
+    empcollection[id].age = req.body.age;
+    empcollection[id].state = req.body.state;
+    empcollection[id].pincode = req.body.pincode;
+    empcollection[id].country = req.body.country;
+    res.status(200).send(empcollection[id]);
 })
 
 app.get("api/employeeobject/:id", (req, res) => {

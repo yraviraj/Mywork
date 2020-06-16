@@ -1,4 +1,12 @@
 function myload() {
+    generateEmployees(delayedfunctions);
+    console.log("after add function");
+}
+
+window.onload = myload();
+
+function delayedfunctions(){
+    completeTable();
     addEmpBox();
     addEmployee();
     deleteEmployee();
@@ -7,8 +15,6 @@ function myload() {
     getCountries();
     addingProp();
 }
-
-window.onload = myload();
 
 
 function addEmpBox() {
@@ -28,7 +34,9 @@ function addEmployee() {
         let eage = document.getElementById('eage').value;
         let i = 1;
         let newEmp = new Employee( employeeServices.getsize() + 100 + i, ename, eage);
+        
         employeeServices.add(newEmp);
+        
         let row = table.insertRow();
         let ccell = row.insertCell();               //  inserting cell for checkbox
         let x = document.createElement("INPUT");    //  below statements are for inserting checkbox into the cell

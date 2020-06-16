@@ -1,3 +1,13 @@
+
+
+
+function completeTable(){
+    generateTable(table);
+    generateTableHead(table);
+}
+
+
+
 function generateTableHead(table) {             // function for generating table head
     let thead = table.createTHead();
     /* createTHead(). createTHead() returns 
@@ -69,9 +79,6 @@ function generateTable(table) {   //function for generating table body
         }
     }
 }
-
-generateTable(table);
-generateTableHead(table);
 
 function insertCell(row, list, sublist) {
     let cell = row.insertCell();
