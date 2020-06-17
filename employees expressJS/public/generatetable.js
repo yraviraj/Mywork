@@ -35,8 +35,8 @@ function generateTableHead(table) {             // function for generating table
 
 let table = document.querySelector('table'); // getting table object form html table tag
 
-function empDetails(eid) {   // fn to display emp details corresponding to emp id
-    let empobj = employeeServices.empObject(eid);
+async function empDetails(eid) {   // fn to display emp details corresponding to emp id
+     let empobj = await employeeServices.getEmpObject(eid);
             document.getElementById("emp-details").style.visibility = "visible";
             document.getElementById("abc").style.visibility = 'hidden';
             document.getElementById("update-name").innerHTML = "Hi " + empobj.name;

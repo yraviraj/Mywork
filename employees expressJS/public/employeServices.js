@@ -57,14 +57,15 @@ class EmployeeServices {
 
     async update(id, name, age, state, pincode, country)  //updating the properties of employee object in an array.
     {
-        const updateObj = {};
+        let updateObj = {};
         updateObj.id = id;
         updateObj.name = name;
         updateObj.age = age;
         updateObj.state = state;
         updateObj.pincode = pincode;
         updateObj.country = country;
-        let response = fetch("http://localhost:3000/api/update", {
+        let index = this.empcollection.findIndex(eachobj => eachobj.id == id);
+        let response = await fetch("http://localhost:3000/api/update", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -72,28 +73,56 @@ class EmployeeServices {
             body: JSON.stringify(updateObj)
         });
         let data = await response.json()
-        console.log(response.status);
+        console.log(data);
         if (response.status == 200) {
-            this.empcollection[id].name = name;
-            this.empcollection[id].age = age;
-            this.empcollection[id].state = state;
-            this.empcollection[id].pincode = pincode;
-            this.empcollection[id].country = country;
+            this.empcollection[index].name = data.name;
+            this.empcollection[index].age = data.age;
+            this.empcollection[index].state = data.state;
+            this.empcollection[index].pincode = data.pincode;
+            this.empcollection[index].country = data.country;
         }
         else {
             console.log("Error Occured, Error Status: " + response.status);
         }
     }
 
-    empObject(empid) // fn for returning emp object wrt emp id 
+    async getEmpObject(empid) // fn for returning emp object wrt emp id 
     {
-        return this.empcollection.find(empobj => empobj.id == empid);
+        let response = await fetch(`http://localhost:3000/api/getEmployeeObject/${empid}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        //let data = await response.json();
+        console.log(response);
+        if (response.status == 200)
+            return this.empcollection.find(empobj => empobj.id == empid);
+        else {
+            console.log(`Error Occured, Error Status: ${response.status}`);
+        }
     }
 
-    getsize()  // method to return the size of an array containing employee objects
+    async getsize()  // method to return the size of an array containing employee objects
     {
-        return this.empcollection.length;
+        /*let response = await fetch("http://localhost:3000/api/getsize", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        let data = await response.json();
+        console.log(data);
+        if (response.status == 200) {
+            console.log(this.empcollection.length);
+            //return this.empcollection.length;
+        }
+        else
+            console.log(`Error Occured, Error Status: ${response.status}`);
+            */
+           return this.empcollection.length;
     }
+    
 
     getAllEmployees() {      // method to return an array containing all the employee objects
         this.employeeArray = Array.from(this.empcollection); //copies all the content from empcollection array to employeeArray
@@ -126,38 +155,6 @@ function addingProp() {
 
 
 /*
-
-async delete(id){        // to delete an employee object based on id from an array
-    let data = await fetch(`http://localhost:3000/api/delete/${id}`);
-    let response = await data.json();
-    }
-    
-    async update(id, name, age, state, pincode, country)  //updating the properties of employee object in an array.
-    {
-        const updateObj = {};
-        updateObj.id = id;
-        updateObj.name = name;
-        updateObj.age = age;
-        updateObj.state = state;
-        updateObj.pincode = pincode;
-        updateObj.country = country;
-        let response = fetch("http://localhost:3000/api/update",{
-            method: "POST",
-            headers:{
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(updateObj)
-        });
-        let data = await response.json()    
-    }
-
-   async empObject(empid) // fn for returning emp object wrt emp id 
-    {
-        let response = await fetch(`http://localhost:3000/api/employeeobject/${empid}`);
-        let data = response.json();
-
-      // return this.empcollection.find(empobj => empobj.id == empid);
-    }
 
    async getsize()  // method to return the size of an array containing employee objects
     {

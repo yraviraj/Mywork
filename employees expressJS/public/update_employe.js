@@ -20,8 +20,7 @@ function updateEmployeeDetails() {
         let emp_country = document.getElementById("country").value;
 
         // updating the array object if the prop exist then gets updated if doesn't exist it gets created.
-
-        employeeServices.update(emp_id - 101, emp_name, emp_age, emp_state, emp_pincode, emp_country);
+        employeeServices.update(emp_id, emp_name, emp_age, emp_state, emp_pincode, emp_country);
         
         //updating the table with the edited data by clicking on the id
         employeeServices.getAllEmployees().forEach(employee => {

@@ -39,7 +39,7 @@ app.post("/api/credentials/add", (req, res) => {
 });
 
 app.post("/api/login", (req, res) => {
-  
+    //console.log(req.body);
     const cookie = (credentials[0].email === req.body.email) && (credentials[0].password == req.body.password) ? "Matched" : "UN Matched";
     
     if(cookie === "Matched"){
@@ -76,25 +76,28 @@ app.post("/api/delete", (req, res) => {
     res.status(200).send(empcollection);
 })
 
-app.post("api/update", (req, res) => {
+app.post("/api/update", (req, res) => {
     const id = req.body.id;
-    console.log(req.body);
-    empcollection[id].name = req.body.name;
-    empcollection[id].age = req.body.age;
-    empcollection[id].state = req.body.state;
-    empcollection[id].pincode = req.body.pincode;
-    empcollection[id].country = req.body.country;
-    res.status(200).send(empcollection[id]);
+    console.log(req.body.id);
+    const index = empcollection.findIndex(eachObj => eachObj.id == id)
+    console.log(index);
+    empcollection[index].name = req.body.name;
+    empcollection[index].age = req.body.age;
+    empcollection[index].state = req.body.state;
+    empcollection[index].pincode = req.body.pincode;
+    empcollection[index].country = req.body.country;
+    res.status(200).send(empcollection[index]);
 })
 
-app.get("api/employeeobject/:id", (req, res) => {
-    const employee = empcollection.find(emp => emp.id === parseInt(req.params.id))
-    if(!employee) res.status(404).send(`the employee with the ${req.params.id} was not found`);
-    res.send(employee);
+app.get("/api/getEmployeeObject/:id", (req, res) => {
+    const employee = empcollection.find(eachemp => eachemp.id === parseInt(req.params.id))// by default id value will be in string type we convert into int type for strict comparison
+    console.log(employee);
+    res.status(200).send(employee);
 });
 
 app.get("/api/getsize", (req, res) => {
-    res.send(empcollection.length);
+    console.log(empcollection.length);
+    res.sendStatus(200).send(empcollection.length);
 })
 
 app.get("/api/getallemployees",(req, res) => {
