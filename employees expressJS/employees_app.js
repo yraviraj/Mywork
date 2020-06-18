@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const credentials = [
     {email: "yraviraj@gmail.com", password: "yraviraj"}
 ];
-app.use(express.static('public'));
+app.use(express.static('public')); // what for ?
 console.log("employees app js started");
 
 app.get("/", (req, res) => {

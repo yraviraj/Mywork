@@ -94,39 +94,47 @@ class EmployeeServices {
                 "Content-Type": "application/json",
             },
         });
-        //let data = await response.json();
-        console.log(response);
+        let data = await response.json();
+        //console.log(data);
+        //console.log(response);
         if (response.status == 200)
             return this.empcollection.find(empobj => empobj.id == empid);
         else {
             console.log(`Error Occured, Error Status: ${response.status}`);
         }
     }
-
     async getsize()  // method to return the size of an array containing employee objects
     {
-        /*let response = await fetch("http://localhost:3000/api/getsize", {
+        let response = await fetch("http://localhost:3000/api/getsize", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
         });
-        let data = await response.json();
-        console.log(data);
+        //let data = await response.json();   //this data statement is not working why but in previous getEmpObject method both are data response are working
+        //console.log(data);
+        console.log(response.status);
         if (response.status == 200) {
-            console.log(this.empcollection.length);
-            //return this.empcollection.length;
+            return this.empcollection.length;
         }
         else
             console.log(`Error Occured, Error Status: ${response.status}`);
-            */
-           return this.empcollection.length;
     }
-    
-
-    getAllEmployees() {      // method to return an array containing all the employee objects
-        this.employeeArray = Array.from(this.empcollection); //copies all the content from empcollection array to employeeArray
-        return this.employeeArray
+    async getAllEmployees() {      // method to return an array containing all the employee objects
+        let response = await fetch("http://localhost:3000/api/getallemployees",{
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        });
+        let data = await response.json();
+        //console.log(data);  // this statement is printing 2 times once check out form which functions it is iterating twice using callstack in devloper tools
+        if(response.status==200){
+            this.employeeArray = Array.from(this.empcollection); //copies all the content from empcollection array to employeeArray
+            return this.employeeArray;
+        }
+        else
+        console.log(`Error Occured, Error Status: ${response.status}`);
     }
 
     static empProperties() {     // static method to return all the properties of an employee object containing in an array
@@ -143,9 +151,10 @@ async function generateEmployees() {
 }
 
 // adding new properties such as pincode, state etc..
-function addingProp() {
+async function addingProp() {
     let c = 0;
-    employeeServices.getAllEmployees().forEach(obj => {  //employeeServices.getAllEmployees() returns array of employee objects
+    let allEmpList = await employeeServices.getAllEmployees();
+    allEmpList.forEach(obj => {  //employeeServices.getAllEmployees() returns array of employee objects
         obj["state"] = "state" + c;
         obj.pincode = 50000 + c;
         c++;
@@ -162,11 +171,4 @@ function addingProp() {
         let data = await response.json();
 
         //return this.empcollection.length;
-    }
-
-    async getAllEmployees(){      // method to return an array containing all the employee objects
-        let response = await fetch("http://localhost:3000/api/getallemployees");
-        let data = await response.json();
-        
-        /*this.employeeArray = Array.from(this.empcollection); //copies all the content from empcollection array to employeeArray
-        return this.employeeArray */
+    } */

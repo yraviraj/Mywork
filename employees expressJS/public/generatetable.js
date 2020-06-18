@@ -47,8 +47,9 @@ async function empDetails(eid) {   // fn to display emp details corresponding to
             document.getElementById("emp-pincode").value = empobj.pincode;
 };
 
-function generateTable(table) {   //function for generating table body
-    for (let list of employeeServices.getAllEmployees()) {   // employeeServices.getAllEmployees() returns array of employees.
+async function generateTable(table) {   //function for generating table body
+    let allEmpList = await employeeServices.getAllEmployees();
+    for (let list of allEmpList) {   // employeeServices.getAllEmployees() returns array of employees.
         let row = table.insertRow();
         row.id = list.id;               //adding id attribute to every tr
 
