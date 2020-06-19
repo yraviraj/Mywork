@@ -17,12 +17,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const credentials = [
     {email: "yraviraj@gmail.com", password: "yraviraj"}
 ];
-app.use(express.static('public')); // what for ?
+app.use(express.static('public'));
 console.log("employees app js started");
 
 app.get("/", (req, res) => {
     // res.send("Hello world !!!");
-    res.sendFile(path.join(__dirname + "/public/views/login.html"));
+    res.sendFile(path.join(__dirname + "/public/login.html"));
 });
 app.get("/api/credentials", (req, res) => {
     res.send(credentials);
@@ -105,6 +105,23 @@ app.get("/api/getallemployees",(req, res) => {
     res.send(empcollectionCopy);
 })
 
+//route to call rest api
+const api_helper = require("./API_helper")
+app.get("/getAPIResponse/countries", (req, res) => {
+    api_helper.make_API_call("https://api.printful.com/countries")
+    .then(response => res.json(response))   //what is the function of res.json()
+    .then(countries => {
+        console.log(countries);
+        res.status(200).send(countries);
+    })
+    .catch(error => res.send(error))
+})
+
+// route for redirecting login page after logout
+
+app.get("/api/employeeServices/logout",(req, res) => {
+    res.sendFile(path.join(__dirname + "/public/login.html"));
+});
 
 //const port = process.env.PORT || 3000;
 app.listen(3000, () => console.log(`Listening on port...  3000`));

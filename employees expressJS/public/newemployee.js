@@ -11,7 +11,7 @@ function delayedfunctions() {
     deleteEmployee();
     updateName();
     updateEmployeeDetails();
-    getCountries();
+    getCountriesList();
     addingProp();
 }
 
