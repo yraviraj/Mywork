@@ -10,6 +10,7 @@ function delayedfunctions() {
     addEmployee();
     deleteEmployee();
     updateName();
+    nameWithGender();
     updateEmployeeDetails();
     getCountriesList();
     addingProp();
@@ -21,12 +22,13 @@ function addEmpBox() {
     add.addEventListener("click", () => {
         document.getElementById("abc").style.visibility = 'visible';
         document.getElementById("emp-details").style.visibility = "hidden";
+        document.getElementById("errormessage").style.visibility = "hidden";
 
     });
 }
 
 function addEmployee() {
-    let errormessage = document.getElementById("errormessage-addemp")
+    let errormessage = document.getElementById("errormessage-addemp");
     let addemp = document.getElementById('submit');
     addemp.addEventListener('click', async function () {
         addemp.disabled = true;
@@ -34,7 +36,7 @@ function addEmployee() {
         let ename = document.getElementById('ename').value;
         let eage = document.getElementById('eage').value;
         let i = 1;
-        let size = await employeeServices.getsize();
+        let size = 121 //await employeeServices.getsize();
         //console.log(size);
         let newEmp = new Employee(size + 100 + i, ename, eage);
         try {
@@ -45,7 +47,7 @@ function addEmployee() {
             let x = document.createElement("INPUT");    //  below statements are for inserting checkbox into the cell
             x.setAttribute("type", "checkbox");
             x.setAttribute("name", "check-box");
-            await x.setAttribute("id", "chk-" + employeeServices.getsize() + 100 + i - 1);   // adding id attribute and value as chk-id to every checkbox
+            await x.setAttribute("id", "chk-" + size + 100 + i - 1);   // adding id attribute and value as chk-id to every checkbox
             ccell.appendChild(x);                       //  until this statement is meant for inserting checkbox into cell
             for (let item in newEmp) {
                 let cell = row.insertCell();
@@ -54,13 +56,13 @@ function addEmployee() {
             };
             addemp.disabled = false;
             document.getElementById("abc").style.visibility = 'hidden';
+            errormessage.style.visibility = "hidden";
         }
-        catch(err){
+        catch (err) {
             errormessage.style.visibility = "visible";
             errormessage.style.color = "red";
-            errormessage.innerHTML = err +"Invalid Credentials";
+            errormessage.innerHTML = err;
             addemp.disabled = false;
-
         }
     })
 };

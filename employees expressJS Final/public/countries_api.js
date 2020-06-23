@@ -1,6 +1,6 @@
 let countries = [];
 let countries_list = [];
-/*
+
 async function getCountriesList() {
     async function getCountries() {         // async function to get countries list using fetch api
         let countries = await fetch("https://api.printful.com/countries");
@@ -21,8 +21,9 @@ async function getCountriesList() {
             });
         });
 }
-*/
 
+
+/*
 async function getCountriesList(){
     let response = await fetch("http://localhost:3000/getAPIResponse/countries", {
         method: "GET",
@@ -40,3 +41,4 @@ async function getCountriesList(){
         document.getElementById("country").appendChild(x);
     });
 }
+*/

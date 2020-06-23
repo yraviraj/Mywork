@@ -13,11 +13,12 @@
         <img src="/avatar2.png" class="avatar">
         <h2>Login here...</h2>
         <form action="http://localhost:3000/api/login" enctype="application/json" method="POST">
-            <p>Email id</p>
-            <input onkeyup="loginValidator(this)" type="text" id="email" name="email" placeholder="Enter emailid" required >
+            <p>Email id</p><label id="labeltext" style="color: red;visibility: hidden;">Invalid Email</label>
+            <input onkeyup="loginValidator(this)" onblur="emailvalidator()" type="text" id="email" name="email" placeholder="Enter emailid" required >
+            
             <p>Password</p>
             <input onkeyup="loginValidator(this)" type="password" id="password" name="password" placeholder="Enter password" required >
-            <input type="submit" id="btsubmit" name="submit" value="Login" disabled><br>
+            <input type="submit" onclick="emailvalidator()" id="btsubmit" name="submit" value="Login" disabled><br>
             <a href="#">Forget Password</a>
         </form>
     </div>
@@ -34,6 +35,18 @@
         }
         else{
             bt.disabled = true;
+        }
+    }
+
+    function emailvalidator(){
+        let emailValue = document.getElementById("email").value;
+        let regx = /^([a-z A-Z 0-9 \. -]+)@([a-z A-Z 0-9 -]+).([a-z]{2,8})(.[a-z]{2,8})?$/;
+        if(regx.test(emailValue))
+        {
+            document.getElementById("labeltext").style.visibility = "hidden";
+        }
+        else{
+            document.getElementById("labeltext").style.visibility = "visible";
         }
     }
 </script>

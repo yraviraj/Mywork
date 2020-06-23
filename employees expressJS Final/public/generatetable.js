@@ -35,18 +35,24 @@ function generateTableHead(table) {             // function for generating table
 
 let table = document.querySelector('table'); // getting table object form html table tag
 
-async function empDetails(eid) {  // fn to display emp details corresponding to emp id
+async function empDetails(eid) {  // fn to display emp details corresponding to emp id on update employee box
      let empobj = await employeeServices.getEmpObject(eid);
             document.getElementById("emp-details").style.visibility = "visible";
-            
+            document.getElementById("errormessage-addemp").style.visibility = "hidden";
             document.getElementById("abc").style.visibility = 'hidden';
-            document.getElementById("update-name").innerHTML = "Hi " + empobj.name;
+            if(document.getElementById("male").checked)
+            document.getElementById("update-name").innerHTML = "Hi Mr " + empobj.name;
+            else
+            document.getElementById("update-name").innerHTML = "Hi Ms " + empobj.name;
             document.getElementById("emp-id").value = empobj.id;
             document.getElementById("emp-name").value = empobj.name;
+            document.getElementById("")
             document.getElementById("emp-age").value = empobj.age;
             document.getElementById("emp-state").value = empobj.state;
             document.getElementById("emp-pincode").value = empobj.pincode;
+            //document.getElementById("country").value = empobj.country; //even though we dont mention this statement this automatically saves the last entered value
 };
+
 
 async function generateTable(table) {   //function for generating table body
     let allEmpList = await employeeServices.getAllEmployees();

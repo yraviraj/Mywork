@@ -28,15 +28,7 @@ app.get("/api/credentials", (req, res) => {
     res.send(credentials);
 });
 
-app.post("/api/credentials/add", (req, res) => {
-    const details = {
-        email: req.body.email,
-        password: req.body.password
-    };
-    credentials.push(details);
-    res.send(details);
-    console.log(details);
-});
+
 
 app.post("/api/login", (req, res) => {
     //console.log(req.body);
@@ -58,18 +50,25 @@ app.post("/api/login", (req, res) => {
 let empcollection = [];
 
 app.post("/api/add", (req, res) => {
-    res.setHeader('Content-Type', 'application/json');
+    //console.log("adding employee >>>>>>>");
+    //res.setHeader('Content-Type', 'application/json'); // what for this line and what is the function of this line.
     const emp = req.body;
-    console.log((emp.name.trim()).length);
-    console.log(parseInt(req.body.age));
     if (((emp.name.trim()).length > 0) && (parseInt(req.body.age) > 0)) {
         empcollection.push(emp);
-        //console.log(empcollection[empcollection.length - 1]);
+        //console.log("adding employee 0: "+req.body);
+
         res.status(200).send(empcollection[empcollection.length - 1]);// since we have n elements in an array but index of nth element in an array is n-1 so we added length -1
-        console.log("array length: " + empcollection.length);
+        //console.log("adding employee 1: "+req.body);
     }
-    else
-        res.status(404).send("Invalid Details");
+    else {
+        let errors = [];
+        if (!((emp.name.trim()).length > 0))
+            errors.push("Invalid Name");
+        if (!(parseInt(req.body.age) > 0))
+            errors.push(" Invalid Age");
+        res.status(500).send(errors);
+        //console.log("Add route error end part req.body : " + req.body);
+    }
 });
 
 app.post("/api/delete", (req, res) => {
@@ -85,62 +84,46 @@ app.post("/api/delete", (req, res) => {
 app.post("/api/update", (req, res) => {
     const id = req.body.id;
     const index = empcollection.findIndex(eachObj => eachObj.id == id)
-    console.log("index : " + index);
-    console.log("name:: " + req.body.name.trim().length);
-    console.log("age:: " + parseInt(req.body.age));
-    console.log("state:: " + req.body.state.trim().length);
-    console.log("pincode:: " + parseInt(req.body.pincode));
 
     if (((req.body.name.trim()).length > 0) && (parseInt(req.body.age) > 0) && ((req.body.state.trim()).length > 0) && (parseInt(req.body.pincode) > 0)) {
         empcollection[index].name = req.body.name;
+        empcollection[index].gender = req.body.gender;
         empcollection[index].age = req.body.age;
         empcollection[index].state = req.body.state;
         empcollection[index].pincode = req.body.pincode;
         empcollection[index].country = req.body.country;
-        console.log(req.body);
+
+
         res.status(200).send(empcollection[index]);
         //console.log(empcollection[index]);
+        console.log(req.body);
     }
     else {
         let errors = [];
-        Object.keys(req.body).forEach(element => {
-            if (element == name) {
-                if(req.body.element == 0)
-                errors.push("Name not defined");
-                else ((req.body.element.trim()) = 0)
-                    errors.push("invalid name");
-            }
-            if (element == age) {
-                if(req.body.element == NaN)
-                errors.push("Age is not defined");
-                else (parseInt(req.body.element) <= 0)
-                    errors.push("invalid age");
-            }
-            if (element == state) {
-                if(req.body.element == 0){
-                    errors.push("state is not defined");
-                }
-                else ((req.body.element.trim()).length <= 0)
-                    errors.push("Invalid state name");
-            }
-            if (element == pincode) {
-                if (parseInt(req.body.element) <= 0)
-                    errors.push("invalid pincode");
-            }
-        });
-        console.log("Error req body : "+req.body);
-        res.status(500).send({errors});
+        if (!((req.body.name.trim()).length > 0))
+            errors.push("Invalid name");
+
+        if (!(parseInt(req.body.age) > 0))
+            errors.push(" Invalid age");
+
+        if (!((req.body.state.trim()).length > 0))
+            errors.push(" Invalid state name");
+
+        if (!(parseInt(req.body.pincode) > 0))
+            errors.push(" Invalid pincode");
+        res.status(500).send(errors);
+        console.log("update route, Error req body : " +req.body);
     }
 });
 
 app.get("/api/getEmployeeObject/:id", (req, res) => {
     const employee = empcollection.find(eachemp => eachemp.id === parseInt(req.params.id))// by default id value will be in string type we convert into int type for strict comparison
-    console.log(employee);
+    //console.log(employee);
     res.status(200).send(employee);
 });
 
 app.get("/api/getsize", (req, res) => {
-    console.log(empcollection.length);
+    //console.log(empcollection.length);
     res.sendStatus(200).send(empcollection.length);
 })
 

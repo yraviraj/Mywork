@@ -4,24 +4,47 @@ function updateName() {
     updateName.onkeydown = updateNameDisplay;    //https://stackoverflow.com/questions/4790946/dynamically-displaying-input-values-using-javascript
     updateName.onkeyup = updateNameDisplay;
     function updateNameDisplay() {
-        document.getElementById("update-name").innerHTML = "Hi " + this.value;
+        if(document.getElementById("male").checked)
+        document.getElementById("update-name").innerHTML = "Hi Mr "+ this.value;
+        else
+        document.getElementById("update-name").innerHTML = "Hi Ms "+ this.value;
     }
+}
+function nameWithGender(){
+let maleclick = document.getElementById("male");
+let name = document.getElementById("emp-name");
+maleclick.addEventListener("click", ()=>{
+    document.getElementById("update-name").innerHTML = "Hi Mr " + name.value;
+});
+let femaleclick = document.getElementById("female");
+femaleclick.addEventListener("click",()=>{
+    document.getElementById("update-name").innerHTML = "Hi Ms "+ name.value;
+});
 }
 
 function updateEmployeeDetails() {
     let errormessage = document.getElementById("errormessage");
     let saveemp = document.getElementById("save-emp");
     saveemp.addEventListener("click", async function(){ 
-        document.getElementById("save-emp").disabled = true;
+        document.getElementById("save-emp").disabled = true;    //disabling save button after clicking
         let emp_id = document.getElementById("emp-id").value;
         let emp_name = document.getElementById("emp-name").value;
         let emp_age = document.getElementById("emp-age").value;
         let emp_state = document.getElementById("emp-state").value;
         let emp_pincode = document.getElementById("emp-pincode").value;
         let emp_country = document.getElementById("country").value;
+        let emp_gender;
+        if(document.getElementById("male").checked){
+        emp_gender = document.getElementById("male").value;
+        console.log(emp_gender);
+    }
+        else{
+        emp_gender = document.getElementById("female").value;
+        console.log(emp_gender);
+        }
          try{
         // updating the array object if the prop exist then gets updated if doesn't exist it gets created.
-        await employeeServices.update(emp_id, emp_name, emp_age, emp_state, emp_pincode, emp_country);
+        await employeeServices.update(emp_id, emp_name, emp_gender, emp_age, emp_state, emp_pincode, emp_country);
         //updating the table with the edited data by clicking on the id
         let allEmpList = await employeeServices.getAllEmployees();
         allEmpList.forEach(employee => {
@@ -33,7 +56,7 @@ function updateEmployeeDetails() {
             }
         });
         errormessage.style.visibility = "hidden";
-        saveemp.disabled = false;
+        saveemp.disabled = false; //enabling again save button after successful response from serveremployeeServices.add
         document.getElementById("emp-details").style.visibility = "hidden";
         }
         catch(err)
@@ -41,7 +64,7 @@ function updateEmployeeDetails() {
             saveemp.disabled = false;
             errormessage.style.visibility = "visible";
             errormessage.style.color = "red";
-            errormessage.innerHTML = "You have entered "+err ;
+            errormessage.innerHTML = err ;
         }
     }); 
     };

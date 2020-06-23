@@ -19,16 +19,15 @@ class EmployeeServices {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(emp)
-        })
+        });
+        let data = await response.json();
+        if (response.status == 200) {
 
-        if (response.status == 200){
-            let data = await response.json();
-            //console.log(data);
             this.empcollection.push(data);
         }
         else {
-            console.log(response.status + "Error Occured");
-            throw "Unsuccessful ";
+            console.log(response.status + " Error Occured");
+            throw data;
         }
     }
 
@@ -58,11 +57,12 @@ class EmployeeServices {
         //this.empcollection.splice(index,1);
     }
 
-    async update(id, name, age, state, pincode, country)  //updating the properties of employee object in an array.
+    async update(id, name, gender, age, state, pincode, country)  //updating the properties of employee object in an array.
     {
         let updateObj = {};
         updateObj.id = id;
         updateObj.name = name;
+        updateObj.gender = gender;
         updateObj.age = age;
         updateObj.state = state;
         updateObj.pincode = pincode;
@@ -76,19 +76,19 @@ class EmployeeServices {
             body: JSON.stringify(updateObj)
         });
         let data = await response.json()
-        console.log("update response data"+data);
+        //console.log("update response data" + data);
         if (response.status == 200) {
-            
-            console.log(data);
+            //console.log("data: "+data);
             this.empcollection[index].name = data.name;
+            this.empcollection[index].gender = data.gender;
             this.empcollection[index].age = data.age;
             this.empcollection[index].state = data.state;
             this.empcollection[index].pincode = data.pincode;
             this.empcollection[index].country = data.country;
         }
         else {
-            console.log("Error Occured, Error Status: " + response.status +"error"+ data);
-            throw "Invalid Details";
+            console.log("Error Occured, Error Status: " + response.status + "error" + data);
+            throw data;
         }
     }
 
@@ -151,13 +151,12 @@ const employeeServices = new EmployeeServices();
 
 async function generateEmployees() {
     for (let i = 1; i <= 100; i++) {
-        try{
-        await employeeServices.add(new Employee((100 + i), ('smith' + i), (10 + i)));
-    }
-    catch(err)
-    {
-        alert(err+" Error occured");
-    }
+        try {
+            await employeeServices.add(new Employee((100 + i), ('smith' + i), (10 + i)));
+        }
+        catch (err) {
+            alert(err + " Error occured");
+        }
     }
     await delayedfunctions();
 }
@@ -169,6 +168,7 @@ async function addingProp() {
     allEmpList.forEach(obj => {  //employeeServices.getAllEmployees() returns array of employee objects
         obj["state"] = "state" + c;
         obj.pincode = 50000 + c;
+        obj.gender = "Male";
         c++;
     });
 }
