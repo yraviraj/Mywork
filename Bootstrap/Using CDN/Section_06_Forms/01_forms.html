@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+
+    <title>Forms</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Form Controls</h1>
+        <form>
+            <div class="form-group">
+                <label for="email11">Email Address</label>
+                <input type="email" id="email11" class="form-control" placeholder="Enter Email id">
+            </div>
+
+            <div class="form-group">
+                <label for="largeemail">Email Address form control large</label>
+                <input readonly type="email" id="largeemail" class="form-control form-control-lg" placeholder="Enter Email id">
+            </div>
+
+            <div class="form-group">
+                <label for="smallemail">Email Address form control small</label>
+                <input readonly type="email" id="smallemail" class="form-control form-control-sm" placeholder="Enter Email id">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Enter Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter Password">
+                <small class="text-muted">password must be more than 8 characters</small>
+            </div>
+
+            <div class="form-group">
+                <label for="number">Select a number</label>
+                <select class="form-control" id="number">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="multi-selelct">Select a number</label>
+                <select id="multi-selelct" class="form-control" multiple>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <small class="text-muted">Hold down Ctrl(Windows) and Command(Mac) buttons to select multiple</small>
+            </div>
+
+            <div class="form-group">
+                <label for="text-area">Text Area</label>
+                <textarea id="text-area" class="form-control" rows="4"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="file">File Input</label>
+                <input type="file" id="file" class="form-control-file">
+            </div>
+
+            <div class="form-group">
+                <label for="formControlRange">Example Range Input</label>
+                <input type="range" id="formControlRange" class="form-control-range">
+            </div>
+
+            <input type="button" value="Submit" class="btn btn-lg btn-primary">
+        </form>
+
+
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
