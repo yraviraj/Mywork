@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>workers details table</title>
+    <link rel="stylesheet" href="/emp.css">
+    <!-- <link rel="stylesheet" href="employee.css"> -->
+</head>
+
+<body>
+    <button id="logout-btn" type="button" onclick="location.href='http://localhost:3000/api/employeeServices/logout'" >Logout</button>
+    <div class="container">
+
+        <div class="emp-table item-1 flexitem1">
+            <h2>Workers details</h2>
+            <div class="table">
+                <table>
+
+                </table>
+            </div>
+            <br>
+            <button id="add-btn" type="submit">Add</button>
+            <button id="del-btn" type="delete">Delete</button>
+
+        </div>
+
+        <div class="displayboxes flexitem2">
+
+            <div class="addemp item-2" style="visibility: hidden;" id="abc">
+                <p id="errormessage-addemp"></p>
+                <div class="input-addemp">
+                    <div>
+                        <label for="ename">Emp.Name:</label>
+                        <span class="required">*</span>
+                    </div>
+                    <div>
+                        <input type="text" id="ename" required>
+                        <br>
+                    </div>
+                    <div>
+                        <label for="eage">Emp.Age:</label>
+                        <span class="required">*</span>
+                    </div>
+                    <div>
+                        <input type="text" id="eage" required>
+                        <br>
+                    </div>
+                </div>
+                <button id='submit' type="submit">save</button>
+            </div>
+
+
+
+            <div class="emp-details item-3" id="emp-details" style="visibility: hidden;">
+                <h2>
+                    <div id="update-name"></div>
+                </h2>
+                <form class="form">
+                    <form action="" class="form">
+                        <p id="errormessage"></p>
+                    <div class="grid-form">
+                        <div>
+                            <label for="emp-id">Emp-Id:</label>
+                        </div>
+                        <div>
+                            <input type="text" name="id" id="emp-id" value="emp-id" disabled>
+                            <br>
+                        </div>
+                        <div>
+                            <label for="emp-name">Emp. Name:</label>
+                            <span class="required">*</span>
+                        </div>
+                        <div>
+                            <input type="text" id="emp-name" name="name" value="emp-name" required>
+                            <br>
+                        </div>
+                        <div>
+                            <label for="gender">Gender:</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="male" name="gender" value="male" checked>
+                            <label for="male">Male</label>
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female">Female</label>
+                        </div>
+                        <div>
+                            <label for="emp-age">Emp. Age:</label>
+                            <span class="required">*</span>
+                        </div>
+                        <div>
+                            <input type="text" id="emp-age" name="age" value="emp-age" required>
+                            <br>
+                        </div>
+                        <div>
+                            <label for="emp-state">Emp. State:</label>
+                            <span class="required">*</span>
+                        </div>
+                        <div>
+                            <input type="text" id="emp-state" name="state" value="emp-state" required>
+                            <br>
+                        </div>
+                        <div>
+                            <label for="emp-pincode">Emp. Pincode:</label>
+                            <span class="required">*</span>
+                        </div>
+                        <div>
+                            <input type="text" id="emp-pincode" name="pincode" value="emp-pincode" required>
+                            <br>
+                        </div>
+                        <div>
+                            <label for="country">Select country</label>
+                            <span class="required">*</span>
+                        </div>
+                        <div>
+                            <select name="country" id="country" name="country" required></select>
+                            <br>
+                        </div>
+                    </div>
+                    <button id="save-emp" type="button">save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/employeServices.js"></script>
+<script src="/generatetable.js"></script>
+<script src="/delete_employe.js"></script>
+<script src="/update_employe.js"></script>
+<script src="/countries_api.js"></script>
+<script src="/newemployee.js"></script>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Login Page</title> 
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+
+    <div class="login-box">
+        <img src="/avatar2.png" class="avatar">
+        <h2>Login here...</h2>
+        <form action="http://localhost:3000/api/login" enctype="application/json" method="POST">
+            <p>Email id</p><label id="labeltext" style="color: red;visibility: hidden;">Invalid Email</label>
+            <input onkeyup="loginValidator(this)" onblur="emailvalidator()" type="text" id="email" name="email" placeholder="Enter emailid" required >
+            
+            <p>Password</p>
+            <input onkeyup="loginValidator(this)" type="password" id="password" name="password" placeholder="Enter password" required >
+            <input type="submit" onclick="emailvalidator()" id="btsubmit" name="submit" value="Login" disabled><br>
+            <a href="#">Forget Password</a>
+        </form>
+    </div>
+</body>
+<script>
+    function loginValidator(txt)    // function to validate email and password fields
+    {
+        //https://www.encodedna.com/javascript/disable-or-enable-submit-button-using-javascript.htm
+        let bt = document.getElementById("btsubmit");   //getting submit button object stored in the bt variable
+        let emailObject = document.getElementById("email");     //getting email text box object stored in the eml variable
+        let passwordObject = document.getElementById("password");  //getting password text box object stored in the pwd variable
+        if((emailObject.value != "") && (passwordObject.value != "")){
+            bt.disabled = false;
+        }
+        else{
+            bt.disabled = true;
+        }
+    }
+
+    function emailvalidator(){
+        let emailValue = document.getElementById("email").value;
+        let regx = /^([a-z A-Z 0-9 \. -]+)@([a-z A-Z 0-9 -]+).([a-z]{2,8})(.[a-z]{2,8})?$/;
+        if(regx.test(emailValue))
+        {
+            document.getElementById("labeltext").style.visibility = "hidden";
+        }
+        else{
+            document.getElementById("labeltext").style.visibility = "visible";
+        }
+    }
+</script>
+</html>
